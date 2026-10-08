@@ -1,0 +1,18 @@
+services:
+  web:
+    build: ./web
+    ports: ["3000:3000"]
+  api:
+    build: .
+    ports: ["5000:5000"]
+    env_file: [.env.example]
+    environment:
+      DB_PASSWORD: taskboard
+    depends_on: [db]
+  db:
+    image: mysql:8.4
+    environment:
+      MYSQL_DATABASE: taskboard
+      MYSQL_USER: taskboard
+      MYSQL_PASSWORD: taskboard
+      MYSQL_RANDOM_ROOT_PASSWORD: "yes"
