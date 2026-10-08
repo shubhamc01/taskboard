@@ -1,0 +1,81 @@
+app_id: taskboard-e75b
+infra_resolution:
+  _domain:
+    at: 1791485723.465537
+    decision: none
+    ref: null
+  _est.compute_host:
+    decision: estimated
+    reason: The Compose stack includes a Flask API, web service, and MySQL container,
+      so allow 2 vCPU and 4 GiB for the services plus the host OS at small scale.
+    ref: 2 vcpu 4 gib
+  _est.database:
+    decision: estimated
+    reason: The Compose configuration identifies MySQL 8.4 as the relational engine,
+      and a small production RDS deployment needs a modest baseline for MySQL and
+      its operating overhead.
+    ref: 1 vcpu 1 gib
+  _managed_elsewhere:
+    at: 1791485682.022828
+    decision: 'no'
+    ref: null
+  _ports:
+    decision: detected
+    ref:
+      api:
+        browse:
+          evidence: 'app.py: @app.get("/api/tasks")'
+          path: /api/tasks
+  _req.compute_host:
+    at: 1791485723.491936
+    decision: set
+    ref: 2 vcpu 2 gib
+  _routes:
+    at: 1791485723.5230231
+    decision: set
+    ref:
+    - - ''
+      - /
+      - web
+      - 3000
+    - - ''
+      - /api
+      - api
+      - 5000
+  _size.compute_host:
+    arch: x86_64
+    at: 1791485723.491946
+    decision: chosen
+    ref: t3.small
+  _stack:
+    at: 1791485728.417141
+    decision: accept
+    ref: null
+  ci_identity:
+    at: 1791485728.429895
+    decision: create
+    ref: null
+  compute_host:
+    at: 1791485728.429905
+    decision: create
+    ref: null
+  container_registry:
+    at: 1791485728.429903
+    decision: create
+    ref: null
+  database:
+    at: 1791485723.5391061
+    decision: on-host
+    ref: null
+  log_store:
+    at: 1791485728.4299068
+    decision: create
+    ref: null
+  network:
+    at: 1791485723.554392
+    decision: reuse
+    ref: vpc-0173de1f48d796dbc
+  state_backend:
+    at: 1791485723.574398
+    decision: create
+    ref: null
