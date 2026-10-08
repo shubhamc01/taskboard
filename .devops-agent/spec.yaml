@@ -1,0 +1,79 @@
+schema_version: 1
+domain: app-deployment
+component: taskboard
+host: github
+cloud: aws
+ci_tool: github-actions
+containerize: true
+target: ec2-docker-compose
+artifact_store: ecr
+environments:
+- dev
+deploy_strategy: rolling
+health_endpoint: /healthz
+iac_tool: terraform
+notifications: none
+k8s_packaging: null
+delivery_model: null
+gitops_tool: null
+gitops_layout: null
+gitops_installed: null
+k8s_stateful: null
+traffic_entry: null
+target_infra_seen: {}
+app_id: taskboard-e75b
+account_bindings:
+  infra/dev: '407493720885'
+  infra/bootstrap: '407493720885'
+account_id: '407493720885'
+provenance:
+  host:
+    source: detected
+    at: 1791485559.079873
+    evidence: remote https://github.com/shubhamc01/taskboard.git
+  deploy_strategy:
+    source: defaulted
+    at: 1791485559.236678
+    evidence: sane default
+  iac_tool:
+    source: defaulted
+    at: 1791485559.243063
+    evidence: the agent creates infrastructure with Terraform (OpenTofu-compatible);
+      Pulumi/CDK are followed when a repo already uses them, not generated
+  notifications:
+    source: defaulted
+    at: 1791485559.243086
+    evidence: set to the CI secret NAME holding a Slack/Teams webhook URL in spec.yaml
+      to get notify-on-failure steps
+  ci_tool:
+    source: defaulted
+    at: 1791485593.03321
+    evidence: "native CI for your git host \u2014 zero extra infrastructure"
+  cloud:
+    source: defaulted
+    at: 1791485593.033752
+    evidence: project default; existing IaC or a scanned inventory would have auto-filled
+      this
+  containerize:
+    source: asked
+    at: 1791485593.033777
+    evidence: null
+  environments:
+    source: asked
+    at: 1791485593.033793
+    evidence: null
+  target:
+    source: defaulted
+    at: 1791485603.676618
+    evidence: "single VM running compose \u2014 often the cheapest containerized option\
+      \ for small apps; no orchestrator, manual scaling, team patches the instance\
+      \ \xB7 $10-40/mo idle (estimate, facts as of 2026-09-27)"
+  artifact_store:
+    source: defaulted
+    at: 1791485603.67753
+    evidence: ECR is the native image registry for all AWS runtimes (no cross-registry
+      pull auth)
+  health_endpoint:
+    source: defaulted
+    at: 1791485603.680952
+    evidence: convention; probes and health checks wire to it
